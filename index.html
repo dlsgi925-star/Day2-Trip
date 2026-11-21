@@ -57,13 +57,13 @@
           <tr><th>항목</th><th>금액</th></tr>
         </thead>
         <tbody>
-          <tr><td>항공</td><td>25만원</td></tr>
-          <tr><td>숙소 (3박)</td><td>18만원</td></tr>
-          <tr><td>식비</td><td>15만원</td></tr>
-          <tr><td>교통</td><td>8만원</td></tr>
+          <tr><td>항공</td><td data-amount="25">25만원</td></tr>
+          <tr><td>숙소 (3박)</td><td data-amount="18">18만원</td></tr>
+          <tr><td>식비</td><td data-amount="15">15만원</td></tr>
+          <tr><td>교통</td><td data-amount="8">8만원</td></tr>
         </tbody>
         <tfoot>
-          <tr><th>합계</th><th>66만원</th></tr>
+          <tr><th>합계</th><th id="total">66만원</th></tr>
         </tfoot>
       </table>
     </section>
@@ -71,12 +71,33 @@
     <section id="checklist">
       <h2>준비물 체크리스트</h2>
       <ul>
-        <li><label><input type="checkbox"> 여권</label></li>
-        <li><label><input type="checkbox"> 유심</label></li>
-        <li><label><input type="checkbox"> 1인 엔화 3만엔</label></li>
-        <li><label><input type="checkbox"> 우산</label></li>
+        <li><label><input type="checkbox" data-id="item0"> 여권</label></li>
+        <li><label><input type="checkbox" data-id="item1"> 유심</label></li>
+        <li><label><input type="checkbox" data-id="item2"> 1인 엔화 3만엔</label></li>
+        <li><label><input type="checkbox" data-id="item3"> 우산</label></li>
       </ul>
     </section>
   </main>
+
+  <script>
+    // 예산 합계: data-amount 값을 더해서 표시
+    var total = 0;
+    document.querySelectorAll('#budget [data-amount]').forEach(function (td) {
+      total += Number(td.dataset.amount);
+    });
+    document.getElementById('total').textContent = total + '만원';
+
+    // 체크리스트: 체크 상태를 localStorage에 저장/복원
+    var KEY = 'fukuoka-checklist';
+    var saved = {};
+    try { saved = JSON.parse(localStorage.getItem(KEY)) || {}; } catch (e) {}
+    document.querySelectorAll('#checklist input[type=checkbox]').forEach(function (box) {
+      box.checked = !!saved[box.dataset.id];
+      box.addEventListener('change', function () {
+        saved[box.dataset.id] = box.checked;
+        try { localStorage.setItem(KEY, JSON.stringify(saved)); } catch (e) {}
+      });
+    });
+  </script>
 </body>
 </html>
