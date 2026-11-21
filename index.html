@@ -4,6 +4,140 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>후쿠오카 3박 4일 여행 일정표</title>
+  <style>
+    :root {
+      --bg: #f6f7fb;
+      --card: #ffffff;
+      --text: #222633;
+      --muted: #6b7280;
+      --line: #e3e6ee;
+      --accent: #2b3a67;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #14161d;
+        --card: #1f232d;
+        --text: #eef0f6;
+        --muted: #9aa1b2;
+        --line: #343a48;
+        --accent: #aebbea;
+      }
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, "Malgun Gothic", "Noto Sans KR", sans-serif;
+      font-size: 17px;
+      line-height: 1.5;
+    }
+    header {
+      padding: 28px 16px 20px;
+      text-align: center;
+      background: var(--accent);
+      color: #fff;
+    }
+    @media (prefers-color-scheme: dark) { header { color: #14161d; } }
+    header h1 { margin: 0 0 4px; font-size: 1.5rem; }
+    header p { margin: 0; opacity: .85; }
+    main { max-width: 640px; margin: 0 auto; padding: 16px; }
+    section { margin-bottom: 28px; }
+    h2 { font-size: 1.25rem; margin: 0 0 12px; }
+
+    /* 날짜별 일정: 세로 타임라인 + Day별 색 */
+    #day1 { --c: #e5484d; }
+    #day2 { --c: #e98a00; }
+    #day3 { --c: #12a46f; }
+    #day4 { --c: #3b82f6; }
+    #schedule article {
+      background: var(--card);
+      border-radius: 14px;
+      border-top: 5px solid var(--c);
+      padding: 14px 16px 8px;
+      margin-bottom: 14px;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, .08);
+    }
+    #schedule h3 {
+      display: inline-block;
+      margin: 0 0 12px;
+      padding: 2px 14px;
+      border-radius: 999px;
+      background: var(--c);
+      color: #fff;
+      font-size: 1rem;
+    }
+    #schedule ul {
+      list-style: none;
+      margin: 0;
+      padding: 0 0 0 26px;
+      position: relative;
+    }
+    #schedule ul::before {
+      content: "";
+      position: absolute;
+      left: 7px;
+      top: 10px;
+      bottom: 22px;
+      width: 3px;
+      border-radius: 2px;
+      background: var(--c);
+      opacity: .45;
+    }
+    #schedule li {
+      position: relative;
+      padding-bottom: 14px;
+    }
+    #schedule li::before {
+      content: "";
+      position: absolute;
+      left: -26px;
+      top: 6px;
+      width: 15px;
+      height: 15px;
+      border-radius: 50%;
+      background: var(--card);
+      border: 4px solid var(--c);
+    }
+
+    /* 예산 표 */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background: var(--card);
+      border-radius: 14px;
+      overflow: hidden;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, .08);
+    }
+    th, td { padding: 12px 16px; text-align: left; }
+    thead th { background: var(--accent); color: #fff; }
+    @media (prefers-color-scheme: dark) { thead th { color: #14161d; } }
+    td + td, th + th { text-align: right; }
+    tbody tr + tr td { border-top: 1px solid var(--line); }
+    tfoot th { border-top: 2px solid var(--accent); font-size: 1.1rem; }
+
+    /* 체크리스트 */
+    #checklist ul { list-style: none; margin: 0; padding: 0; }
+    #checklist li + li { margin-top: 8px; }
+    #checklist label {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      min-height: 52px;
+      padding: 10px 16px;
+      background: var(--card);
+      border-radius: 12px;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, .08);
+      cursor: pointer;
+    }
+    #checklist input {
+      width: 24px;
+      height: 24px;
+      accent-color: var(--accent);
+      flex-shrink: 0;
+    }
+    #checklist label:has(input:checked) { color: var(--muted); text-decoration: line-through; }
+  </style>
 </head>
 <body>
   <header>
